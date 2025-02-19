@@ -1,0 +1,53 @@
+@font-face {
+    font-family: "Aileron";
+    src: url("fonts/Ailerons-Typeface.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+.header{
+    padding-top: 1%;
+    text-align: center;
+    margin: 0;
+    font-size: 6em;
+    font-family: "Aileron" ;
+    color: #fff;
+}
+.body{
+    background-color: #000000;
+    height: 100%;
+    width: 100%;
+    margin:0rem;
+    overflow:hidden;
+}
+.gen-text{
+    text-align: center;
+    font-family: "Aileron" ;
+    font-size: 1em;
+    padding-left: 10%;
+    padding-right: 10%;
+    color: #fff;
+}
+
+#image-track{
+    padding-top: 5%;
+    display:flex;
+    gap:4vmin;
+    position:absolute; 
+    left:5%; 
+    top:50%;  
+    transform:translate(0%,-50%);
+    user-select: none; /* -- Prevent image highlighting -- */
+}
+#image-track > .image{
+    width:40vmin;
+    height:56vmin;
+    object-fit:cover;
+    object-position: 100% center;
+    border: 1px solid #fff;
+}
+#image-track > .image:hover{
+    /* background-color:rgba(255, 255, 255, 0.3); */
+    cursor: pointer;
+    opacity: 0.70;
+
+}
