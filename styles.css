@@ -1,0 +1,239 @@
+@font-face {
+    font-family: "Aileron";
+    src: url("fonts/Ailerons-Typeface.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+.header{
+    padding-top: 1%;
+    text-align: center;
+    margin: 0;
+    font-size: 6em;
+    font-family: "Aileron" ;
+    color: #fff;
+}
+.body{
+    background-color: #000000;
+    height: 100vh;
+    width: 100%;
+    margin: 0rem;
+    overflow: hidden;
+}
+.gen-text{
+    text-align: center;
+    font-family: "Aileron" ;
+    font-size: 1em;
+    padding-left: 10%;
+    padding-right: 10%;
+    color: #fff;
+}
+
+#image-track{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-top: 5%;
+    display: flex;
+    gap: 4vmin;
+    user-select: none;
+    min-width: max-content;
+    padding-left: 5%;
+    padding-right: 5%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 60vh;
+    align-items: center;
+    width: 100%;
+}
+
+#image-track::-webkit-scrollbar {
+    height: 12px;
+}
+
+#image-track::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+#image-track::-webkit-scrollbar-thumb {
+    background: #fff;
+    border-radius: 6px;
+}
+
+#image-track::-webkit-scrollbar-thumb:hover {
+    background: #ccc;
+}
+
+#image-track {
+    scrollbar-width: thin;
+    scrollbar-color: #fff #1a1a1a;
+}
+
+#image-track > .image{
+    width: 40vmin;
+    height: 56vmin;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid #fff;
+    flex-shrink: 0;
+}
+#image-track > .image:hover{
+    cursor: pointer;
+    opacity: 0.70;
+}
+
+/* Custom scrollbar styling */
+body::-webkit-scrollbar {
+    height: 12px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #fff;
+    border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #ccc;
+}
+
+/* Firefox scrollbar */
+body {
+    scrollbar-width: thin;
+    scrollbar-color: #fff #1a1a1a;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    margin: 5% auto;
+    padding: 0;
+    border: 1px solid #fff;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 0;
+    position: relative;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close {
+    color: #fff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: #ccc;
+}
+
+.mountain-info {
+    padding: 40px 30px 30px 30px;
+    color: #fff;
+    font-family: "Aileron", sans-serif;
+}
+
+.mountain-info h2 {
+    margin: 0 0 20px 0;
+    font-size: 2.5em;
+    font-weight: normal;
+    text-align: center;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 15px;
+}
+
+.mountain-stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 0;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.stat {
+    flex: 1;
+    min-width: 200px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+
+.label {
+    display: block;
+    font-size: 0.9em;
+    color: #ccc;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat span:last-child {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.mountain-info p {
+    line-height: 1.6;
+    font-size: 1em;
+    margin: 25px 0 0 0;
+    text-align: justify;
+    color: #e0e0e0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .mountain-info {
+        padding: 30px 20px 20px 20px;
+    }
+    
+    .mountain-info h2 {
+        font-size: 2em;
+    }
+    
+    .mountain-stats {
+        flex-direction: column;
+    }
+    
+    .stat {
+        min-width: auto;
+    }
+}

@@ -1,0 +1,28 @@
+.App {
+  background-color: #000000;
+  min-height: 100vh;
+  position: relative;
+}
+
+.App-header {
+  text-align: center;
+  padding-top: 1%;
+  position: relative;
+  z-index: 10;
+}
+
+.title {
+  margin: 0;
+  font-size: 6em;
+  font-weight: normal;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 1em;
+  font-weight: normal;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-top: 10px;
+} 

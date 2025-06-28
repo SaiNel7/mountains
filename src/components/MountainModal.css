@@ -1,0 +1,137 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 1px solid #fff;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  z-index: 1;
+}
+
+.modal-close:hover {
+  color: #ccc;
+}
+
+.mountain-info {
+  padding: 40px 30px 30px 30px;
+  color: #fff;
+}
+
+.mountain-info h2 {
+  margin: 0 0 20px 0;
+  font-size: 2.5em;
+  font-weight: normal;
+  text-align: center;
+  letter-spacing: 2px;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 15px;
+}
+
+.mountain-stats {
+  display: flex;
+  justify-content: space-between;
+  margin: 25px 0;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.stat {
+  flex: 1;
+  min-width: 200px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+}
+
+.label {
+  display: block;
+  font-size: 0.9em;
+  color: #ccc;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.value {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.mountain-lore {
+  line-height: 1.6;
+  font-size: 1em;
+  margin: 25px 0 0 0;
+  text-align: justify;
+  color: #e0e0e0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+  }
+  
+  .mountain-info {
+    padding: 30px 20px 20px 20px;
+  }
+  
+  .mountain-info h2 {
+    font-size: 2em;
+  }
+  
+  .mountain-stats {
+    flex-direction: column;
+  }
+  
+  .stat {
+    min-width: auto;
+  }
+} 

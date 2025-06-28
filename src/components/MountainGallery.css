@@ -1,0 +1,79 @@
+.mountain-gallery {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding-top: 5%;
+  display: flex;
+  gap: 4vmin;
+  user-select: none;
+  min-width: max-content;
+  padding-left: 5%;
+  padding-right: 5%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 60vh;
+  align-items: center;
+  width: 100%;
+}
+
+.mountain-gallery:active {
+  cursor: grabbing;
+}
+
+.gallery-container {
+  display: flex;
+  gap: 4vmin;
+  min-width: max-content;
+  align-items: center;
+}
+
+.mountain-card {
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.mountain-card:hover {
+  opacity: 0.7;
+}
+
+.mountain-image {
+  width: 40vmin;
+  height: 56vmin;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid #fff;
+  flex-shrink: 0;
+  user-select: none;
+  display: block;
+}
+
+/* Custom scrollbar styling */
+.mountain-gallery::-webkit-scrollbar {
+  height: 12px;
+}
+
+.mountain-gallery::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.mountain-gallery::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 6px;
+}
+
+.mountain-gallery::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
+}
+
+/* Firefox scrollbar */
+.mountain-gallery {
+  scrollbar-width: thin;
+  scrollbar-color: #fff #1a1a1a;
+}
+
+/* Smooth scrolling */
+.mountain-gallery {
+  scroll-behavior: smooth;
+} 

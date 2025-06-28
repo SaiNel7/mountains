@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <title> THE EIGHT-THOUSANDERS </title>
+       <meta name="description" content="this is the description">
+        <link rel="stylesheet" href="styles.css" />
+        
+    </head>
+    <body class="body" >
+        <h1 class="header"> EIGHT-THOUSANDERS</h1>
+        <h2 class="gen-text">
+            Dare to Ascend
+        </h2>
+        <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+            <img class="image" src="images/Everest.avif" draggable="false" data-mountain="everest">
+            <img class="image" src="images/k2.webp" draggable="false" data-mountain="k2">
+            <img class="image" src="images/kanchenjunga2.avif" draggable="false" data-mountain="kanchenjunga">
+            <img class="image" src="images/Lhotse.jpeg" draggable="false" data-mountain="lhotse">
+            <img class="image" src="images/Makalu.jpeg" draggable="false" data-mountain="makalu">
+            <img class="image" src="images/Cho Oyu.jpeg" draggable="false" data-mountain="cho-oyu">
+            <img class="image" src="images/Dhaulagiri I.jpeg" draggable="false" data-mountain="dhaulagiri">
+            <img class="image" src="images/Manaslu.jpeg" draggable="false" data-mountain="manaslu">
+            <img class="image" src="images/Nanga Parbat.jpeg" draggable="false" data-mountain="nanga-parbat">
+            <img class="image" src="images/Annapurna.jpeg" draggable="false" data-mountain="annapurna">
+            <img class="image" src="images/Gasherbrum I.jpeg" draggable="false" data-mountain="gasherbrum-i">
+            <img class="image" src="images/Broad Peak.jpeg" draggable="false" data-mountain="broad-peak">
+            <img class="image" src="images/Gasherbrum II.jpg" draggable="false" data-mountain="gasherbrum-ii">
+            <img class="image" src="images/Shishapangma.webp" draggable="false" data-mountain="shishapangma">
+        </div>
+
+        <!-- Modal Popup -->
+        <div id="mountain-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="mountain-info">
+                    <h2 id="mountain-name"></h2>
+                    <div class="mountain-stats">
+                        <div class="stat">
+                            <span class="label">Height:</span>
+                            <span id="mountain-height"></span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">First Summit:</span>
+                            <span id="mountain-first-summit"></span>
+                        </div>
+                    </div>
+                    <p id="mountain-lore"></p>
+                </div>
+            </div>
+        </div>
+
+        <script src="back.js"></script>
+        <script type="text/javascript">
+            // Mountain data
+            const mountainData = {
+                everest: {
+                    name: "Mount Everest",
+                    height: "8,848m (29,029ft)",
+                    firstSummit: "Edmund Hillary & Tenzing Norgay (1953)",
+                    lore: "The crown jewel of the Himalayas, Everest stands as the ultimate test of human endurance. Known as 'Sagarmatha' to the Nepalese and 'Chomolungma' to the Tibetans, this sacred peak has claimed over 300 lives while drawing thousands of climbers seeking to touch the roof of the world."
+                },
+                k2: {
+                    name: "K2",
+                    height: "8,611m (28,251ft)",
+                    firstSummit: "Achille Compagnoni & Lino Lacedelli (1954)",
+                    lore: "The 'Savage Mountain' - more deadly than Everest despite being shorter. K2's steep, technical routes and unpredictable weather make it the most challenging of the eight-thousanders. Only about 300 people have summited compared to Everest's thousands."
+                },
+                kanchenjunga: {
+                    name: "Kangchenjunga",
+                    height: "8,586m (28,169ft)",
+                    firstSummit: "George Band & Joe Brown (1955)",
+                    lore: "The 'Five Treasures of Snow' - named for its five peaks representing gold, silver, gems, grain, and holy books. Revered by the local Sikkimese, climbers traditionally stop short of the true summit out of respect for the mountain's sacred nature."
+                },
+                lhotse: {
+                    name: "Lhotse",
+                    height: "8,516m (27,940ft)",
+                    firstSummit: "Fritz Luchsinger & Ernst Reiss (1956)",
+                    lore: "Everest's neighbor and the fourth highest peak, Lhotse's South Face is considered one of the most dangerous climbing routes in the world. The mountain's name means 'South Peak' in Tibetan, referring to its position relative to Everest."
+                },
+                makalu: {
+                    name: "Makalu",
+                    height: "8,485m (27,838ft)",
+                    firstSummit: "Jean Couzy & Lionel Terray (1955)",
+                    lore: "The 'Great Black' - named for its dark, rocky appearance. Makalu's pyramid shape and isolated location make it one of the most beautiful and challenging peaks. Its four-sided pyramid structure is unique among the eight-thousanders."
+                },
+                "cho-oyu": {
+                    name: "Cho Oyu",
+                    height: "8,188m (26,864ft)",
+                    firstSummit: "Herbert Tichy, Sepp Jöchler & Pasang Dawa Lama (1954)",
+                    lore: "The 'Turquoise Goddess' - considered the easiest of the eight-thousanders due to its gentle slopes and stable weather. Cho Oyu serves as a training ground for climbers preparing for more challenging peaks like Everest."
+                },
+                dhaulagiri: {
+                    name: "Dhaulagiri I",
+                    height: "8,167m (26,795ft)",
+                    firstSummit: "Kurt Diemberger, Peter Diener, Nawang Dorje & Nima Dorje (1960)",
+                    lore: "The 'White Mountain' - its name means 'beautiful' in Sanskrit. Dhaulagiri's massive white face dominates the Kali Gandaki Valley, creating one of the world's deepest gorges alongside Annapurna. It was once thought to be the world's highest peak."
+                },
+                manaslu: {
+                    name: "Manaslu",
+                    height: "8,163m (26,781ft)",
+                    firstSummit: "Toshio Imanishi & Gyalzen Norbu (1956)",
+                    lore: "The 'Mountain of the Spirit' - named after the Sanskrit word 'manas' meaning intellect or soul. Manaslu's remote location and technical challenges make it one of the least climbed eight-thousanders, preserving its pristine wilderness."
+                },
+                "nanga-parbat": {
+                    name: "Nanga Parbat",
+                    height: "8,126m (26,660ft)",
+                    firstSummit: "Hermann Buhl (1953)",
+                    lore: "The 'Naked Mountain' - its name refers to its bare rock faces. Known as the 'Killer Mountain' for its deadly reputation, Nanga Parbat's Rupal Face is the world's highest mountain face. It claimed 31 lives before its first successful ascent."
+                },
+                annapurna: {
+                    name: "Annapurna I",
+                    height: "8,091m (26,545ft)",
+                    firstSummit: "Maurice Herzog & Louis Lachenal (1950)",
+                    lore: "The 'Goddess of the Harvests' - the first eight-thousander ever climbed. Despite being the shortest, Annapurna has the highest fatality rate among the eight-thousanders. Its name means 'full of food' in Sanskrit, symbolizing abundance."
+                },
+                "gasherbrum-i": {
+                    name: "Gasherbrum I",
+                    height: "8,080m (26,509ft)",
+                    firstSummit: "Pete Schoening & Andy Kauffman (1958)",
+                    lore: "The 'Hidden Peak' - named for its secluded location in the Karakoram range. Gasherbrum I's remote position and technical climbing requirements make it one of the most challenging peaks to access and climb."
+                },
+                "broad-peak": {
+                    name: "Broad Peak",
+                    height: "8,051m (26,414ft)",
+                    firstSummit: "Fritz Wintersteller, Marcus Schmuck, Kurt Diemberger & Hermann Buhl (1957)",
+                    lore: "The 'Falchan Kangri' - its name means 'broad peak' due to its wide summit ridge. Located near K2, Broad Peak offers a slightly less technical alternative while still providing the challenge of high-altitude climbing."
+                },
+                "gasherbrum-ii": {
+                    name: "Gasherbrum II",
+                    height: "8,034m (26,362ft)",
+                    firstSummit: "Fritz Moravec, Josef Larch & Hans Willenpart (1956)",
+                    lore: "The 'Hidden Peak II' - the most accessible of the Gasherbrum peaks. Gasherbrum II's standard route is considered one of the safest among the eight-thousanders, making it popular with commercial expeditions."
+                },
+                shishapangma: {
+                    name: "Shishapangma",
+                    height: "8,027m (26,335ft)",
+                    firstSummit: "Xu Jing & 9 others (1964)",
+                    lore: "The 'Crest Above the Grassy Plain' - the only eight-thousander entirely within Tibet. Shishapangma was the last of the fourteen to be climbed, and its location in Chinese territory made it inaccessible to Western climbers until the 1980s."
+                }
+            };
+
+            // Modal functionality
+            const modal = document.getElementById("mountain-modal");
+            const closeBtn = document.getElementsByClassName("close")[0];
+
+            // Add click event listeners to all mountain images
+            document.querySelectorAll('.image').forEach(img => {
+                img.addEventListener('click', function() {
+                    const mountainKey = this.getAttribute('data-mountain');
+                    const mountain = mountainData[mountainKey];
+                    
+                    if (mountain) {
+                        document.getElementById('mountain-name').textContent = mountain.name;
+                        document.getElementById('mountain-height').textContent = mountain.height;
+                        document.getElementById('mountain-first-summit').textContent = mountain.firstSummit;
+                        document.getElementById('mountain-lore').textContent = mountain.lore;
+                        modal.style.display = "block";
+                    }
+                });
+            });
+
+            // Close modal when clicking X
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>   
+    </body>
+</html>
