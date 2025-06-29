@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import './MountainGallery.css';
 
 const MountainGallery = ({ mountains, onMountainClick }) => {
@@ -6,6 +6,7 @@ const MountainGallery = ({ mountains, onMountainClick }) => {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
+  const dragThreshold = useRef(10); // Minimum distance to trigger drag
 
   // Mouse events
   const handleMouseDown = (e) => {
@@ -13,6 +14,7 @@ const MountainGallery = ({ mountains, onMountainClick }) => {
     startX.current = e.pageX - galleryRef.current.offsetLeft;
     scrollLeft.current = galleryRef.current.scrollLeft;
     galleryRef.current.classList.add('dragging');
+    e.preventDefault();
   };
 
   const handleMouseMove = (e) => {
@@ -28,7 +30,7 @@ const MountainGallery = ({ mountains, onMountainClick }) => {
     galleryRef.current.classList.remove('dragging');
   };
 
-  // Touch events
+  // Touch events with improved handling
   const handleTouchStart = (e) => {
     isDragging.current = true;
     startX.current = e.touches[0].pageX - galleryRef.current.offsetLeft;
@@ -38,15 +40,61 @@ const MountainGallery = ({ mountains, onMountainClick }) => {
 
   const handleTouchMove = (e) => {
     if (!isDragging.current) return;
+    e.preventDefault();
     const x = e.touches[0].pageX - galleryRef.current.offsetLeft;
     const walk = (x - startX.current) * 1.2;
     galleryRef.current.scrollLeft = scrollLeft.current - walk;
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e) => {
+    if (!isDragging.current) return;
+    
+    // Check if it was a tap vs drag
+    const endX = e.changedTouches[0].pageX - galleryRef.current.offsetLeft;
+    const distance = Math.abs(endX - startX.current);
+    
+    if (distance < dragThreshold.current) {
+      // It was a tap, not a drag
+      isDragging.current = false;
+      galleryRef.current.classList.remove('dragging');
+      return;
+    }
+    
     isDragging.current = false;
     galleryRef.current.classList.remove('dragging');
   };
+
+  // Handle mountain card click with drag detection
+  const handleMountainClick = (mountain, e) => {
+    if (isDragging.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    onMountainClick(mountain);
+  };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    const gallery = galleryRef.current;
+    
+    const handleMouseLeave = () => {
+      if (isDragging.current) {
+        isDragging.current = false;
+        gallery.classList.remove('dragging');
+      }
+    };
+
+    if (gallery) {
+      gallery.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    return () => {
+      if (gallery) {
+        gallery.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, []);
 
   return (
     <div
@@ -55,7 +103,6 @@ const MountainGallery = ({ mountains, onMountainClick }) => {
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -66,7 +113,12 @@ const MountainGallery = ({ mountains, onMountainClick }) => {
           <div
             key={mountain.id}
             className="mountain-card"
-            onClick={() => onMountainClick(mountain)}
+            onClick={(e) => handleMountainClick(mountain, e)}
+            onTouchEnd={(e) => {
+              if (!isDragging.current) {
+                handleMountainClick(mountain, e);
+              }
+            }}
           >
             <img
               src={mountain.image}

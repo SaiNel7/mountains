@@ -1,14 +1,22 @@
 .mountain-gallery {
   width: 100%;
-  margin-top: 2.5rem;
+  margin-top: clamp(1rem, 4vw, 2.5rem);
   overflow-x: auto;
   overflow-y: hidden;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 2rem 0 0 0;
+  padding: clamp(1rem, 3vw, 2rem) 0 clamp(2rem, 4vw, 3rem) 0;
   box-sizing: border-box;
   background: transparent;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Hide scrollbar on Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar on IE/Edge */
+}
+
+.mountain-gallery::-webkit-scrollbar {
+  display: none; /* Hide scrollbar on Chrome/Safari */
 }
 
 .mountain-gallery:active {
@@ -17,30 +25,38 @@
 
 .gallery-container {
   display: flex;
-  gap: 2rem;
+  gap: clamp(0.5rem, 2vw, 2rem);
   min-width: max-content;
   align-items: flex-end;
   justify-content: flex-start;
+  padding: 0 clamp(0.5rem, 2vw, 1rem);
+  min-height: clamp(250px, 50vh, 400px);
 }
 
 .mountain-card {
   flex-shrink: 0;
   cursor: pointer;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  scroll-snap-align: start;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mountain-card:hover {
   opacity: 0.7;
+  transform: translateY(-2px);
+}
+
+.mountain-card:active {
+  transform: translateY(0);
 }
 
 .mountain-image {
-  width: 220px;
-  max-width: 90vw;
-  height: 320px;
-  max-height: 60vh;
+  width: clamp(140px, 28vw, 260px);
+  height: clamp(220px, 45vh, 420px);
   object-fit: cover;
   object-position: center;
   border: 1px solid #fff;
@@ -50,30 +66,44 @@
   background: #222;
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 }
 
-/* Custom scrollbar styling */
-.mountain-gallery::-webkit-scrollbar {
-  height: 12px;
+.mountain-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
-.mountain-gallery::-webkit-scrollbar-track {
-  background: #1a1a1a;
-}
-
-.mountain-gallery::-webkit-scrollbar-thumb {
-  background: #fff;
-  border-radius: 6px;
-}
-
-.mountain-gallery::-webkit-scrollbar-thumb:hover {
-  background: #ccc;
-}
-
-/* Firefox scrollbar */
-.mountain-gallery {
-  scrollbar-width: thin;
-  scrollbar-color: #fff #1a1a1a;
+/* Custom scrollbar styling - only show on desktop */
+@media (min-width: 1025px) {
+  .mountain-gallery {
+    scrollbar-width: thin;
+    scrollbar-color: #fff #1a1a1a;
+    -ms-overflow-style: auto;
+  }
+  
+  .mountain-gallery::-webkit-scrollbar {
+    display: block;
+    height: clamp(8px, 1.5vw, 12px);
+  }
+  
+  .mountain-gallery::-webkit-scrollbar-track {
+    background: #1a1a1a;
+  }
+  
+  .mountain-gallery::-webkit-scrollbar-thumb {
+    background: #fff;
+    border-radius: 6px;
+  }
+  
+  .mountain-gallery::-webkit-scrollbar-thumb:hover {
+    background: #ccc;
+  }
 }
 
 /* Smooth scrolling */
@@ -81,15 +111,167 @@
   scroll-behavior: smooth;
 }
 
-@media (max-width: 600px) {
+/* Mobile-first responsive design */
+@media (max-width: 480px) {
+  .mountain-gallery {
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  
+  .gallery-container {
+    display: flex;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+    min-height: 200px;
+    max-width: 100vw;
+  }
+  
+  .mountain-card {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    max-width: 90vw;
+  }
+  
+  .mountain-image {
+    width: 140px;
+    height: 220px;
+    min-width: 140px;
+    max-width: 90vw;
+  }
+  
+  .mountain-card:hover {
+    transform: none;
+  }
+  
+  .mountain-image:hover {
+    transform: none;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .mountain-gallery {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+  
+  .gallery-container {
+    gap: 1rem;
+    padding: 0 0.75rem;
+    min-height: 280px;
+  }
+  
+  .mountain-image {
+    width: 180px;
+    height: 280px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .mountain-gallery {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+  }
+  
+  .gallery-container {
+    gap: 1.5rem;
+    padding: 0 1rem;
+    min-height: 350px;
+  }
+  
+  .mountain-image {
+    width: 220px;
+    height: 340px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .mountain-gallery {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+  }
+  
+  .gallery-container {
+    gap: 2rem;
+    padding: 0 1rem;
+    min-height: 400px;
+  }
+  
+  .mountain-image {
+    width: 260px;
+    height: 420px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .mountain-card:hover {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .mountain-image:hover {
+    transform: none;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+  
+  .mountain-card:active {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+  
+  .mountain-image:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .mountain-gallery {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+  }
+  
+  .gallery-container {
+    gap: 0.5rem;
+    min-height: 160px;
+  }
+  
   .mountain-image {
     width: 120px;
     height: 180px;
   }
-  .gallery-container {
-    gap: 1rem;
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .mountain-image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
   }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .mountain-card,
+  .mountain-image {
+    transition: none;
+  }
+  
   .mountain-gallery {
-    padding-top: 1rem;
+    scroll-behavior: auto;
   }
 } 

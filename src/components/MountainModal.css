@@ -11,87 +11,107 @@
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease-out;
+  padding: clamp(0.5rem, 2vw, 1rem);
 }
 
 .modal-content {
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   border: 1px solid #fff;
-  width: 90%;
-  max-width: 600px;
+  width: 100%;
+  max-width: clamp(320px, 90vw, 600px);
+  max-height: 90vh;
+  overflow-y: auto;
   position: relative;
   animation: slideIn 0.3s ease-out;
+  border-radius: 8px;
 }
 
 .modal-close {
   position: absolute;
-  top: 15px;
-  right: 20px;
+  top: clamp(10px, 2vw, 15px);
+  right: clamp(15px, 3vw, 20px);
   background: none;
   border: none;
   color: #fff;
-  font-size: 28px;
+  font-size: clamp(24px, 5vw, 28px);
   font-weight: bold;
   cursor: pointer;
   transition: color 0.3s ease;
   z-index: 1;
+  width: clamp(32px, 6vw, 40px);
+  height: clamp(32px, 6vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 .modal-close:hover {
   color: #ccc;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-close:active {
+  transform: scale(0.95);
 }
 
 .mountain-info {
-  padding: 40px 30px 30px 30px;
+  padding: clamp(20px, 4vw, 40px) clamp(15px, 3vw, 30px) clamp(15px, 3vw, 30px) clamp(15px, 3vw, 30px);
   color: #fff;
 }
 
 .mountain-info h2 {
-  margin: 0 0 20px 0;
-  font-size: 2.5em;
+  margin: 0 0 clamp(15px, 3vw, 20px) 0;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
   font-weight: normal;
   text-align: center;
-  letter-spacing: 2px;
+  letter-spacing: clamp(1px, 0.3vw, 2px);
   border-bottom: 1px solid #fff;
-  padding-bottom: 15px;
+  padding-bottom: clamp(10px, 2vw, 15px);
+  line-height: 1.2;
+  text-transform: lowercase;
 }
 
 .mountain-stats {
   display: flex;
   justify-content: space-between;
-  margin: 25px 0;
+  margin: clamp(20px, 4vw, 25px) 0;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: clamp(10px, 2vw, 15px);
 }
 
 .stat {
   flex: 1;
-  min-width: 200px;
-  padding: 15px;
+  min-width: clamp(140px, 40vw, 200px);
+  padding: clamp(10px, 2vw, 15px);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
   text-align: center;
+  border-radius: 4px;
 }
 
 .label {
   display: block;
-  font-size: 0.9em;
+  font-size: clamp(0.75rem, 2.5vw, 0.9rem);
   color: #ccc;
-  margin-bottom: 5px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  margin-bottom: clamp(3px, 1vw, 5px);
+  text-transform: lowercase;
+  letter-spacing: clamp(0.5px, 0.2vw, 1px);
 }
 
 .value {
-  font-size: 1.1em;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
   font-weight: bold;
+  text-transform: lowercase;
 }
 
 .mountain-lore {
   line-height: 1.6;
-  font-size: 1em;
-  margin: 25px 0 0 0;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  margin: clamp(20px, 4vw, 25px) 0 0 0;
   text-align: justify;
   color: #e0e0e0;
+  text-transform: lowercase;
 }
 
 @keyframes fadeIn {
@@ -106,17 +126,59 @@
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-50px);
+    transform: translateY(-50px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
-@media (max-width: 768px) {
+/* Mobile-first responsive design */
+@media (max-width: 480px) {
+  .modal-overlay {
+    padding: 0.5rem;
+  }
+  
   .modal-content {
-    width: 95%;
+    max-width: 100%;
+    max-height: 95vh;
+  }
+  
+  .mountain-info {
+    padding: 20px 15px 15px 15px;
+  }
+  
+  .mountain-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+  
+  .mountain-stats {
+    flex-direction: column;
+    margin: 20px 0;
+    gap: 10px;
+  }
+  
+  .stat {
+    min-width: auto;
+    padding: 10px;
+  }
+  
+  .mountain-lore {
+    font-size: 0.875rem;
+    margin: 20px 0 0 0;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .modal-overlay {
+    padding: 0.75rem;
+  }
+  
+  .modal-content {
+    max-width: 95%;
   }
   
   .mountain-info {
@@ -124,7 +186,7 @@
   }
   
   .mountain-info h2 {
-    font-size: 2em;
+    font-size: 2rem;
   }
   
   .mountain-stats {
@@ -133,5 +195,88 @@
   
   .stat {
     min-width: auto;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .modal-content {
+    max-width: 85%;
+  }
+  
+  .mountain-info {
+    padding: 35px 25px 25px 25px;
+  }
+  
+  .mountain-info h2 {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .modal-content {
+    max-width: 600px;
+  }
+  
+  .mountain-info {
+    padding: 40px 30px 30px 30px;
+  }
+  
+  .mountain-info h2 {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+  }
+  
+  .mountain-stats {
+    flex-direction: row;
+  }
+  
+  .stat {
+    min-width: 200px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .modal-close:hover {
+    background: none;
+  }
+  
+  .modal-close:active {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .modal-overlay {
+    padding: 0.25rem;
+  }
+  
+  .modal-content {
+    max-height: 98vh;
+  }
+  
+  .mountain-info {
+    padding: 15px 15px 10px 15px;
+  }
+  
+  .mountain-info h2 {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+  }
+  
+  .mountain-stats {
+    margin: 15px 0;
+    gap: 8px;
+  }
+  
+  .stat {
+    padding: 8px;
+  }
+  
+  .mountain-lore {
+    margin: 15px 0 0 0;
+    font-size: 0.8rem;
   }
 } 

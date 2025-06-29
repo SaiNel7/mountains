@@ -21,8 +21,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className="title">EIGHT-THOUSANDERS</h1>
-        <h2 className="subtitle">Dare to Ascend</h2>
+        <h1 className="title">mighty peaks</h1>
+        <h2 className="subtitle">dare to ascend</h2>
       </header>
 
       <MountainGallery 
